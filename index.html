@@ -4,7 +4,92 @@
 <title>Destynacje</title>
 
 <style>
+<script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
+authDomain: "destynacje-17720.firebaseapp.com",
+projectId: "destynacje-17720",
+storageBucket: "destynacje-17720.firebasestorage.app",
+messagingSenderId: "538573490778",
+appId: "1:538573490778:web:4579e973f76830f27ce663"
+measurementId: "G-SXJ8WSY2HX"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+window.register = function(){
+
+const email = document.getElementById("email").value;
+
+const password = document.getElementById("password").value;
+
+createUserWithEmailAndPassword(auth,email,password)
+
+.then(() => {
+
+alert("Konto utworzone!");
+
+})
+
+.catch((error) => {
+
+alert(error.message);
+
+});
+
+}
+
+window.login = function(){
+
+const email = document.getElementById("email").value;
+
+const password = document.getElementById("password").value;
+
+signInWithEmailAndPassword(auth,email,password)
+
+.then(() => {
+
+alert("Zalogowano!");
+
+})
+
+.catch((error) => {
+
+alert(error.message);
+
+});
+
+}
+
+window.logout = function(){
+
+signOut(auth)
+
+.then(() => {
+
+alert("Wylogowano!");
+
+});
+
+}
+
+</script>
+    
 body{
     margin:0;
     font-family:Arial,sans-serif;
@@ -141,6 +226,29 @@ footer{
 <a href="#">Profil</a>
 </nav>
 
+<div style="padding:40px;text-align:center;">
+
+<h2>Logowanie</h2>
+
+<input id="email" type="email" placeholder="Email"
+style="padding:10px;margin:10px;width:250px;">
+
+<br>
+
+<input id="password" type="password" placeholder="Hasło"
+style="padding:10px;margin:10px;width:250px;">
+
+<br>
+
+<button onclick="register()">Załóż konto</button>
+
+<button onclick="login()">Zaloguj</button>
+
+<button onclick="logout()">Wyloguj</button>
+
+</div>
+
+    
 <section class="hero">
 
 <h1>Odkrywaj świat</h1>
