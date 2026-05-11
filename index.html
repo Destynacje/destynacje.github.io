@@ -220,10 +220,15 @@ footer{
 </header>
 
 <nav>
-<a href="#">Oferty</a>
-<a href="#">Test jakim podróżnikiem jesteś</a>
-<a href="#">Aktualności</a>
-<a href="#">Profil</a>
+
+<a href="#oferty">Oferty</a>
+
+<a href="#test">Test jakim podróżnikiem jesteś</a>
+
+<a href="#aktualnosci">Aktualności</a>
+
+<a href="#profil">Profil</a>
+
 </nav>
 
 <div style="padding:40px;text-align:center;">
@@ -261,8 +266,21 @@ style="padding:10px;margin:10px;width:250px;">
 
 <div class="container">
 
-<h2 class="section-title">Polecane oferty</h2>
+<h2 id="oferty" class="section-title">Polecane oferty</h2>
 
+<h2 id="test" class="section-title">
+Test jakim podróżnikiem jesteś
+</h2>
+
+<div class="news">
+
+<p>
+Lubisz luksus, przygody czy backpacking?
+</p>
+
+<button>Rozpocznij test</button>
+
+</div>
 <div class="cards">
 
 <div class="card">
@@ -321,7 +339,9 @@ style="padding:10px;margin:10px;width:250px;">
 
 </div>
 
-<h2 class="section-title">Aktualności</h2>
+<h2 id="aktualnosci" class="section-title">
+Aktualności
+</h2>
 
 <div class="news">
 <h3>Nowe kierunki na lato 2025</h3>
@@ -334,7 +354,58 @@ style="padding:10px;margin:10px;width:250px;">
 </div>
 
 </div>
+<div id="profil" class="container">
 
+<h2 class="section-title">Profil użytkownika</h2>
+
+<div class="news" style="text-align:center;">
+
+<h3>Logowanie</h3>
+
+<input id="email"
+type="email"
+placeholder="Email"
+
+style="
+padding:12px;
+margin:10px;
+width:260px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<br>
+
+<input id="password"
+type="password"
+placeholder="Hasło"
+
+style="
+padding:12px;
+margin:10px;
+width:260px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<br><br>
+
+<button onclick="register()">
+Załóż konto
+</button>
+
+<button onclick="login()">
+Zaloguj
+</button>
+
+<button onclick="logout()">
+Wyloguj
+</button>
+
+</div>
+
+</div>
+    
 <footer>
 
 <p>© Destynacje.pl — Samo się (nie) ogarnie</p>
