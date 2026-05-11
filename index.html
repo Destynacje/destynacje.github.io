@@ -1,74 +1,108 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Włóczykij - Oferty podróży</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #f4f4f4;
-    }
+<title>Destynacje</title>
 
-    header {
-      background: #0f4c81;
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
+<style>
 
-    .container {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f4f4;
+}
 
-    .offer {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
+header{
+    background:#0b3d5c;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
 
-    button {
-      background: #0f4c81;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+nav{
+    background:#06283d;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
-    button:hover {
-      background: #093354;
-    }
-  </style>
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:15px 20px;
+    display:block;
+}
+
+nav a:hover{
+    background:#0b3d5c;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+button{
+    background:#0b3d5c;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#145374;
+}
+
+</style>
+
 </head>
-
 <body>
 
 <header>
-  <h1>Destynacje</h1>
-  <p>Samo się (nie) ogarnie</p>
+    <h1>Destynacje</h1>
+    <p>Odkrywaj świat razem z nami</p>
 </header>
+
+<nav>
+    <a href="#">Oferty</a>
+    <a href="#">Test jakim podróżnikiem jesteś</a>
+    <a href="#">Aktualności</a>
+    <a href="#">Profil</a>
+</nav>
 
 <div class="container">
 
-  <div class="offer">
-    <h2>Grecja - Kreta</h2>
-    <p>7 dni all inclusive</p>
-    <p><strong>2999 zł</strong></p>
-    <button>Zobacz ofertę</button>
-  </div>
+    <div class="card">
+        <h2>🌴 Grecja - Kreta</h2>
+        <p>7 dni all inclusive</p>
+        <p><strong>2999 zł</strong></p>
+        <button>Zobacz ofertę</button>
+    </div>
 
-  <div class="offer">
-    <h2>Włochy - Rzym</h2>
-    <p>Weekend city break</p>
-    <p><strong>1499 zł</strong></p>
-    <button>Zobacz ofertę</button>
-  </div>
+    <div class="card">
+        <h2>🏔️ Norwegia</h2>
+        <p>Wyprawa fiordami</p>
+        <p><strong>4599 zł</strong></p>
+        <button>Zobacz ofertę</button>
+    </div>
+
+    <div class="card">
+        <h2>📰 Aktualność</h2>
+        <p>Nowe kierunki podróży już dostępne!</p>
+    </div>
 
 </div>
 
