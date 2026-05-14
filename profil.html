@@ -171,6 +171,45 @@ Wyloguj
 </div>
 
 <!-- REJESTRACJA -->
+<div id="auth-container"
+
+style="
+display:flex;
+justify-content:center;
+gap:60px;
+flex-wrap:wrap;
+padding:60px 20px;
+">
+
+<!-- LOGOWANIE -->
+
+<div class="login-box">
+
+<h2>Logowanie</h2>
+
+<input
+id="login-email"
+type="email"
+placeholder="Email">
+
+<input
+id="login-password"
+type="password"
+placeholder="Hasło">
+
+<br>
+
+<button onclick="login()">
+Zaloguj
+</button>
+
+<button onclick="logout()">
+Wyloguj
+</button>
+
+</div>
+
+<!-- REJESTRACJA -->
 
 <div class="login-box">
 
@@ -198,6 +237,47 @@ Załóż konto
 </button>
 
 </div>
+
+</div>
+
+<!-- PANEL KONTA -->
+
+<div
+id="account-panel"
+
+style="
+display:none;
+max-width:600px;
+margin:60px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h2>Moje konto</h2>
+
+<p>
+<strong>Nazwa użytkownika:</strong>
+<span id="account-username"></span>
+</p>
+
+<p>
+<strong>Email:</strong>
+<span id="account-email"></span>
+</p>
+
+<p style="color:green;">
+Jesteś zalogowany
+</p>
+
+<button onclick="logout()">
+Wyloguj
+</button>
+
+</div>
+
 
 </div>
 
