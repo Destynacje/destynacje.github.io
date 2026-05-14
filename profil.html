@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pl">
 <head>
 
@@ -150,11 +151,7 @@ margin-top:20px;
 Moje konto
 </div>
 
-<!-- LOGOWANIE + REJESTRACJA -->
-
 <div id="auth-container">
-
-<!-- LOGOWANIE -->
 
 <div class="login-box">
 
@@ -181,8 +178,6 @@ Wyloguj
 </button>
 
 </div>
-
-<!-- REJESTRACJA -->
 
 <div class="login-box">
 
@@ -213,8 +208,6 @@ Załóż konto
 
 </div>
 
-<!-- PANEL KONTA -->
-
 <div id="account-panel">
 
 <h2>Moje konto</h2>
@@ -242,8 +235,7 @@ Wyloguj
 </div>
 
 <script type="module">
-alert("skrypt działa");
-  
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -266,13 +258,18 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
-authDomain: "destynacje-17720.firebaseapp.com",
-projectId: "destynacje-17720",
-storageBucket: "destynacje-17720.firebasestorage.app",
-messagingSenderId: "538573490778",
-appId: "1:538573490778:web:4579e973f76830f27ce663"
-measurementId: "G-SXJ8WSY2HX"
+apiKey: "TU_WKLEJ_APIKEY",
+
+authDomain: "TU_WKLEJ_AUTHDOMAIN",
+
+projectId: "TU_WKLEJ_PROJECTID",
+
+storageBucket: "TU_WKLEJ_STORAGE",
+
+messagingSenderId: "TU_WKLEJ_SENDERID",
+
+appId: "TU_WKLEJ_APPID"
+
 };
 
 const app = initializeApp(firebaseConfig);
@@ -281,10 +278,7 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-// REJESTRACJA
-
 window.register = async function(){
-alert("klik działa");
 
 const username =
 document.getElementById("username").value;
@@ -348,8 +342,6 @@ alert(error.message);
 
 }
 
-// LOGOWANIE
-
 window.login = function(){
 
 const email =
@@ -374,8 +366,6 @@ alert(error.message);
 
 }
 
-// WYLOGOWANIE
-
 window.logout = function(){
 
 signOut(auth)
@@ -384,8 +374,6 @@ alert("Wylogowano!");
 });
 
 }
-
-// PANEL KONTA
 
 onAuthStateChanged(auth, async(user)=>{
 
