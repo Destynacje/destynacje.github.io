@@ -1,6 +1,8 @@
+
+
+```html
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
 
 <meta charset="UTF-8">
@@ -31,6 +33,7 @@ nav{
 background:#6bbf59;
 display:flex;
 justify-content:center;
+flex-wrap:wrap;
 }
 
 nav a{
@@ -47,8 +50,7 @@ background:#57a548;
 .hero{
 height:300px;
 background:
-linear-gradient(rgba(0,0,0,0.4),
-rgba(0,0,0,0.4)),
+linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
 url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
 
 background-size:cover;
@@ -63,58 +65,71 @@ font-size:50px;
 font-weight:bold;
 }
 
+#auth-container{
+display:flex;
+justify-content:center;
+gap:60px;
+flex-wrap:wrap;
+padding:60px 20px;
+}
+
 .login-box{
-
-max-width:500px;
-margin:50px auto;
+width:360px;
 background:white;
-
 padding:40px;
-
 border-radius:20px;
-
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
-
 text-align:center;
+}
 
+.login-box h2{
+margin-bottom:25px;
 }
 
 input{
-
 width:90%;
-
 padding:14px;
-
 margin:12px 0;
-
 border-radius:10px;
-
 border:1px solid #ccc;
-
+font-size:15px;
 }
 
 button{
-
 background:#6bbf59;
-
 color:white;
-
 border:none;
-
 padding:14px 22px;
-
 border-radius:10px;
-
 cursor:pointer;
-
 margin:5px;
-
 font-weight:bold;
-
 }
 
 button:hover{
 background:#57a548;
+}
+
+#account-panel{
+display:none;
+max-width:600px;
+margin:60px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.account-info{
+font-size:18px;
+margin:15px 0;
+}
+
+.logged{
+color:green;
+font-weight:bold;
+margin-top:20px;
 }
 
 </style>
@@ -124,62 +139,23 @@ background:#57a548;
 <body>
 
 <header>
-
-<img src="logo.png">
-
+<img src="logo.png" alt="Logo">
 </header>
 
 <nav>
-
 <a href="index.html">Oferty</a>
-
-<a href="index.html#test">
-Test podróżnika
-</a>
-
-<a href="index.html#aktualnosci">
-Aktualności
-</a>
-
-<a href="profil.html">
-Profil
-</a>
-
+<a href="index.html#test">Test podróżnika</a>
+<a href="index.html#aktualnosci">Aktualności</a>
+<a href="profil.html">Profil</a>
 </nav>
 
 <div class="hero">
-
 Moje konto
-
 </div>
 
-<input
-id="login-password"
-type="password"
-placeholder="Hasło">
+<!-- LOGOWANIE + REJESTRACJA -->
 
-<br>
-
-<button onclick="login()">
-Zaloguj
-</button>
-
-<button onclick="logout()">
-Wyloguj
-</button>
-
-</div>
-
-<!-- REJESTRACJA -->
-<div id="auth-container"
-
-style="
-display:flex;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
-padding:60px 20px;
-">
+<div id="auth-container">
 
 <!-- LOGOWANIE -->
 
@@ -242,130 +218,79 @@ Załóż konto
 
 <!-- PANEL KONTA -->
 
-<div
-id="account-panel"
-
-style="
-display:none;
-max-width:600px;
-margin:60px auto;
-background:white;
-padding:40px;
-border-radius:20px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-text-align:center;
-">
+<div id="account-panel">
 
 <h2>Moje konto</h2>
 
-<p>
+<div class="account-info">
 <strong>Nazwa użytkownika:</strong>
 <span id="account-username"></span>
-</p>
+</div>
 
-<p>
+<div class="account-info">
 <strong>Email:</strong>
 <span id="account-email"></span>
-</p>
+</div>
 
-<p style="color:green;">
+<div class="logged">
 Jesteś zalogowany
-</p>
+</div>
+
+<br>
 
 <button onclick="logout()">
 Wyloguj
 </button>
 
 </div>
-
-
-</div>
-
-<!-- PANEL KONTA -->
-
-<div
-id="account-panel"
-
-style="
-display:none;
-max-width:600px;
-margin:60px auto;
-background:white;
-padding:40px;
-border-radius:20px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-text-align:center;
-">
-
-<h2>Moje konto</h2>
-
-<p>
-<strong>Nazwa użytkownika:</strong>
-<span id="account-username"></span>
-</p>
-
-<p>
-<strong>Email:</strong>
-<span id="account-email"></span>
-</p>
-
-<p style="color:green;">
-Jesteś zalogowany
-</p>
-
-<button onclick="logout()">
-Wyloguj
-</button>
-
-</div>
-
 
 <script type="module">
 
 import { initializeApp }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 signOut,
 onAuthStateChanged
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-
 getFirestore,
 doc,
 setDoc,
 getDoc
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
-authDomain: "destynacje-17720.firebaseapp.com",
-projectId: "destynacje-17720",
-storageBucket: "destynacje-17720.firebasestorage.app",
-messagingSenderId: "538573490778",
-appId: "1:538573490778:web:4579e973f76830f27ce663"
-measurementId: "G-SXJ8WSY2HX"
+apiKey: "TU_WKLEJ_APIKEY",
+
+authDomain: "TU_WKLEJ_AUTHDOMAIN",
+
+projectId: "TU_WKLEJ_PROJECTID",
+
+storageBucket: "TU_WKLEJ_STORAGE",
+
+messagingSenderId: "TU_WKLEJ_SENDERID",
+
+appId: "TU_WKLEJ_APPID"
+
 };
 
 const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
-  
+const auth = getAuth(app);
 
-  window.register = async function(){
+const db = getFirestore(app);
+
+// REJESTRACJA
+
+window.register = async function(){
 
 const username =
 document.getElementById("username").value;
@@ -377,11 +302,8 @@ const password =
 document.getElementById("register-password").value;
 
 if(username.length < 3){
-
 alert("Nazwa użytkownika za krótka");
-
 return;
-
 }
 
 const usernameRef =
@@ -391,11 +313,8 @@ const usernameSnap =
 await getDoc(usernameRef);
 
 if(usernameSnap.exists()){
-
 alert("Ta nazwa użytkownika już istnieje");
-
 return;
-
 }
 
 createUserWithEmailAndPassword(
@@ -409,7 +328,6 @@ password
 await setDoc(
 
 doc(db,"usernames",username),
-
 {
 uid:userCredential.user.uid
 }
@@ -419,7 +337,6 @@ uid:userCredential.user.uid
 await setDoc(
 
 doc(db,"users",userCredential.user.uid),
-
 {
 username:username,
 email:email
@@ -432,12 +349,12 @@ alert("Konto utworzone!");
 })
 
 .catch((error)=>{
-
 alert(error.message);
-
 });
 
 }
+
+// LOGOWANIE
 
 window.login = function(){
 
@@ -454,30 +371,28 @@ password
 )
 
 .then(()=>{
-
 alert("Zalogowano!");
-
 })
 
 .catch((error)=>{
-
 alert(error.message);
-
 });
 
 }
+
+// WYLOGOWANIE
 
 window.logout = function(){
 
 signOut(auth)
-
-.then(() => {
-
+.then(()=>{
 alert("Wylogowano!");
-
 });
 
 }
+
+// PANEL KONTA
+
 onAuthStateChanged(auth, async(user)=>{
 
 if(user){
@@ -523,7 +438,6 @@ document.getElementById(
 }
 
 });
-
 
 </script>
 
