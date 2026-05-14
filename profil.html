@@ -153,23 +153,12 @@ Moje konto
 
 </div>
 
-<div class="login-box">
-
-<h2>Logowanie</h2>
-
-<input id="email"
-type="email"
-placeholder="Email">
-
-<input id="password"
+<input
+id="login-password"
 type="password"
 placeholder="Hasło">
 
 <br>
-
-<button onclick="register()">
-Załóż konto
-</button>
 
 <button onclick="login()">
 Zaloguj
@@ -181,9 +170,80 @@ Wyloguj
 
 </div>
 
+<!-- REJESTRACJA -->
+
+<div class="login-box">
+
+<h2>Rejestracja</h2>
+
+<input
+id="username"
+type="text"
+placeholder="Nazwa użytkownika">
+
+<input
+id="register-email"
+type="email"
+placeholder="Email">
+
+<input
+id="register-password"
+type="password"
+placeholder="Hasło">
+
+<br>
+
+<button onclick="register()">
+Załóż konto
+</button>
+
+</div>
+
+</div>
+
+<!-- PANEL KONTA -->
+
+<div
+id="account-panel"
+
+style="
+display:none;
+max-width:600px;
+margin:60px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+text-align:center;
+">
+
+<h2>Moje konto</h2>
+
+<p>
+<strong>Nazwa użytkownika:</strong>
+<span id="account-username"></span>
+</p>
+
+<p>
+<strong>Email:</strong>
+<span id="account-email"></span>
+</p>
+
+<p style="color:green;">
+Jesteś zalogowany
+</p>
+
+<button onclick="logout()">
+Wyloguj
+</button>
+
+</div>
+
+
 <script type="module">
 
 import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
@@ -191,11 +251,23 @@ import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
-signOut
+signOut,
+onAuthStateChanged
 
 }
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+setDoc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
@@ -210,26 +282,76 @@ measurementId: "G-SXJ8WSY2HX"
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const db = getFirestore(app);
+  
 
-window.register = function(){
+  window.register = async function(){
+
+const username =
+document.getElementById("username").value;
 
 const email =
-document.getElementById("email").value;
+document.getElementById("register-email").value;
 
 const password =
-document.getElementById("password").value;
+document.getElementById("register-password").value;
+
+if(username.length < 3){
+
+alert("Nazwa użytkownika za krótka");
+
+return;
+
+}
+
+const usernameRef =
+doc(db,"usernames",username);
+
+const usernameSnap =
+await getDoc(usernameRef);
+
+if(usernameSnap.exists()){
+
+alert("Ta nazwa użytkownika już istnieje");
+
+return;
+
+}
 
 createUserWithEmailAndPassword(
-auth,email,password)
+auth,
+email,
+password
+)
 
-.then(() => {
+.then(async(userCredential)=>{
+
+await setDoc(
+
+doc(db,"usernames",username),
+
+{
+uid:userCredential.user.uid
+}
+
+);
+
+await setDoc(
+
+doc(db,"users",userCredential.user.uid),
+
+{
+username:username,
+email:email
+}
+
+);
 
 alert("Konto utworzone!");
 
 })
 
-.catch((error) => {
+.catch((error)=>{
 
 alert(error.message);
 
@@ -240,21 +362,24 @@ alert(error.message);
 window.login = function(){
 
 const email =
-document.getElementById("email").value;
+document.getElementById("login-email").value;
 
 const password =
-document.getElementById("password").value;
+document.getElementById("login-password").value;
 
 signInWithEmailAndPassword(
-auth,email,password)
+auth,
+email,
+password
+)
 
-.then(() => {
+.then(()=>{
 
 alert("Zalogowano!");
 
 })
 
-.catch((error) => {
+.catch((error)=>{
 
 alert(error.message);
 
@@ -273,6 +398,52 @@ alert("Wylogowano!");
 });
 
 }
+onAuthStateChanged(auth, async(user)=>{
+
+if(user){
+
+document.getElementById(
+"auth-container"
+).style.display = "none";
+
+document.getElementById(
+"account-panel"
+).style.display = "block";
+
+const userRef =
+doc(db,"users",user.uid);
+
+const userSnap =
+await getDoc(userRef);
+
+if(userSnap.exists()){
+
+const data = userSnap.data();
+
+document.getElementById(
+"account-username"
+).innerText = data.username;
+
+document.getElementById(
+"account-email"
+).innerText = data.email;
+
+}
+
+}else{
+
+document.getElementById(
+"auth-container"
+).style.display = "flex";
+
+document.getElementById(
+"account-panel"
+).style.display = "none";
+
+}
+
+});
+
 
 </script>
 
