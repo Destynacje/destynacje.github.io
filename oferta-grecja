@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Grecja — Destynacje</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef7ea;
+}
+
+.hero{
+
+height:400px;
+
+background:
+linear-gradient(rgba(0,0,0,0.4),
+rgba(0,0,0,0.4)),
+url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:white;
+font-size:60px;
+font-weight:bold;
+
+}
+
+.container{
+
+max-width:1000px;
+
+margin:auto;
+
+padding:50px 20px;
+
+}
+
+.card{
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+
+}
+
+.price{
+
+font-size:34px;
+
+font-weight:bold;
+
+margin:20px 0;
+
+color:#4f9f3d;
+
+}
+
+button{
+
+background:#6bbf59;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+button:hover{
+background:#57a548;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+Grecja
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Kreta — Grecja</h1>
+
+<div class="price">
+2999 zł
+</div>
+
+<p>
+
+7 dni wakacji all inclusive.
+
+Hotel przy plaży,
+basen,
+wycieczki fakultatywne,
+pełne wyżywienie.
+
+</p>
+
+<h2>W cenie:</h2>
+
+<ul>
+
+<li>Przelot</li>
+
+<li>Hotel</li>
+
+<li>All inclusive</li>
+
+<li>Transfer</li>
+
+</ul>
+
+<br>
+
+<a href="oferty.html">
+
+<button>
+Powrót do ofert
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>
