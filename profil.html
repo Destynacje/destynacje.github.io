@@ -399,7 +399,11 @@ onAuthStateChanged(auth, async(user)=>{
 if(user){
 
 document.getElementById(
-"profile-box"
+"auth-container"
+).style.display = "none";
+
+document.getElementById(
+"account-panel"
 ).style.display = "block";
 
 if(
@@ -412,14 +416,6 @@ document.getElementById(
 ).style.display = "inline-block";
 
 }
-  
-document.getElementById(
-"auth-container"
-).style.display = "none";
-
-document.getElementById(
-"account-panel"
-).style.display = "block";
 
 const userRef =
 doc(db,"users",user.uid);
