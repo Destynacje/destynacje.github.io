@@ -178,71 +178,82 @@ Nasze oferty
 
 <div class="container">
 
-<div class="offers-grid">
+<div class="offers-grid"
+id="offers-container">
 
-<!-- OFERTA 1 -->
+</div>
+
+</div>
+
+</div>
+  
+const firebaseConfig = {
+
+apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
+  
+authDomain: "destynacje-17720.firebaseapp.com",
+  
+projectId: "destynacje-17720",
+  
+storageBucket: "destynacje-17720.firebasestorage.app",
+  
+messagingSenderId: "538573490778",
+  
+appId: "1:538573490778:web:4579e973f76830f27ce663",
+  
+measurementId: "G-SXJ8WSY2HX"
+  
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const offersContainer =
+document.getElementById("offers-container");
+
+async function loadOffers(){
+
+const querySnapshot =
+await getDocs(collection(db,"offers"));
+
+querySnapshot.forEach((doc)=>{
+
+const offer = doc.data();
+
+offersContainer.innerHTML += `
 
 <div class="offer-card">
 
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop">
+<img src="${offer.image}">
 
 <div class="offer-content">
 
-<h2>Grecja — Kreta</h2>
+<h2>${offer.title}</h2>
 
-<p>
-7 dni all inclusive
-</p>
+<p>${offer.description}</p>
 
 <div class="price">
-2999 zł
+${offer.price}
 </div>
-
-<a href="oferta-grecja.html">
 
 <button>
 Zobacz ofertę
 </button>
 
-</a>
-
 </div>
 
 </div>
 
-<!-- OFERTA 2 -->
+`;
 
-<div class="offer-card">
+});
 
-<img src="https://images.unsplash.com/photo-1517821365201-7734f463f9a0?q=80&w=1200&auto=format&fit=crop">
+}
 
-<div class="offer-content">
+loadOffers();
 
-<h2>Norwegia — Fiordy</h2>
-
-<p>
-Wycieczka po fiordach
-</p>
-
-<div class="price">
-4599 zł
-</div>
-
-<a href="oferta-norwegia.html">
-
-<button>
-Zobacz ofertę
-</button>
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+</script>
+  
 </body>
 </html>
