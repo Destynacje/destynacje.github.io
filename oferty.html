@@ -185,8 +185,21 @@ id="offers-container">
 
 </div>
 
-</div>
-  
+<script type="module">
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+collection,
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
