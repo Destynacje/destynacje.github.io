@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Panel admina — Destynacje</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef7ea;
+}
+
+header{
+background:#dff0d8;
+padding:20px;
+text-align:center;
+}
+
+header img{
+width:280px;
+max-width:90%;
+}
+
+nav{
+background:#6bbf59;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+padding:18px 25px;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+background:#57a548;
+}
+
+.container{
+
+max-width:800px;
+
+margin:50px auto;
+
+padding:40px;
+
+background:white;
+
+border-radius:20px;
+
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+
+}
+
+h1{
+
+text-align:center;
+
+color:#4f9f3d;
+
+}
+
+input,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+margin:12px 0;
+
+border-radius:10px;
+
+border:1px solid #ccc;
+
+font-size:16px;
+
+box-sizing:border-box;
+
+}
+
+textarea{
+
+height:180px;
+
+resize:vertical;
+
+}
+
+button{
+
+background:#6bbf59;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+font-size:16px;
+
+}
+
+button:hover{
+background:#57a548;
+}
+
+.success{
+
+margin-top:20px;
+
+color:green;
+
+font-weight:bold;
+
+text-align:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png">
+
+</header>
+
+<nav>
+
+<a href="index.html">Strona główna</a>
+
+<a href="oferty.html">Oferty</a>
+
+<a href="profil.html">Profil</a>
+
+</nav>
+
+<div class="container">
+
+<h1>Dodaj ofertę</h1>
+
+<input
+id="title"
+type="text"
+placeholder="Tytuł oferty">
+
+<input
+id="price"
+type="text"
+placeholder="Cena">
+
+<input
+id="image"
+type="text"
+placeholder="Link do zdjęcia">
+
+<input
+id="description"
+type="text"
+placeholder="Krótki opis">
+
+<textarea
+id="details"
+placeholder="Pełny opis oferty"></textarea>
+
+<button onclick="addOffer()">
+Dodaj ofertę
+</button>
+
+<div
+class="success"
+id="success">
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+collection,
+addDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
+  
+authDomain: "destynacje-17720.firebaseapp.com",
+  
+projectId: "destynacje-17720",
+  
+storageBucket: "destynacje-17720.firebasestorage.app",
+  
+messagingSenderId: "538573490778",
+  
+appId: "1:538573490778:web:4579e973f76830f27ce663",
+  
+measurementId: "G-SXJ8WSY2HX"
+  
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+window.addOffer = async function(){
+
+const title =
+document.getElementById("title").value;
+
+const price =
+document.getElementById("price").value;
+
+const image =
+document.getElementById("image").value;
+
+const description =
+document.getElementById("description").value;
+
+const details =
+document.getElementById("details").value;
+
+await addDoc(collection(db,"offers"),{
+
+title:title,
+
+price:price,
+
+image:image,
+
+description:description,
+
+details:details
+
+});
+
+document.getElementById(
+"success"
+).innerText =
+"Oferta została dodana!";
+
+document.getElementById("title").value = "";
+
+document.getElementById("price").value = "";
+
+document.getElementById("image").value = "";
+
+document.getElementById("description").value = "";
+
+document.getElementById("details").value = "";
+
+}
+
+</script>
+
+</body>
+</html>
