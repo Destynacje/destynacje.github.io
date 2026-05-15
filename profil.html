@@ -177,6 +177,23 @@ Zaloguj
 Wyloguj
 </button>
 
+<a
+id="panel-button"
+href="panel.html"
+
+style="
+display:none;
+margin-left:15px;
+">
+
+<button>
+
+Panel
+
+</button>
+
+</a>
+
 </div>
 
 <div class="login-box">
@@ -381,6 +398,21 @@ onAuthStateChanged(auth, async(user)=>{
 
 if(user){
 
+document.getElementById(
+"profile-box"
+).style.display = "block";
+
+if(
+user.email ===
+"u17174405@gmail"
+){
+
+document.getElementById(
+"panel-button"
+).style.display = "inline-block";
+
+}
+  
 document.getElementById(
 "auth-container"
 ).style.display = "none";
