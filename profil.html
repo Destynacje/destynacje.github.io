@@ -249,6 +249,22 @@ Jesteś zalogowany
 Wyloguj
 </button>
 
+<a
+id="panel-button"
+href="panel.html"
+
+style="
+display:none;
+margin-left:15px;
+">
+
+<button>
+
+Panel
+
+</button>
+
+</a>
 </div>
 
 <script type="module">
@@ -411,9 +427,15 @@ user.email ===
 "u17174405@gmail"
 ){
 
+const panelButton =
 document.getElementById(
 "panel-button"
-).style.display = "inline-block";
+);
+
+if(panelButton){
+
+panelButton.style.display =
+"inline-block";
 
 }
 
