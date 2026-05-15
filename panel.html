@@ -148,8 +148,26 @@ text-align:center;
 <a href="profil.html">Profil</a>
 
 </nav>
+  
+<div
+id="no-access"
 
-<div class="container">
+style="
+display:none;
+text-align:center;
+padding:80px;
+font-size:30px;
+font-weight:bold;
+color:red;
+">
+
+Brak dostępu
+
+</div>
+<div
+class="container"
+id="admin-panel"
+style="display:none;">
 
 <h1>Dodaj ofertę</h1>
 
@@ -205,6 +223,15 @@ addDoc
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+
+getAuth,
+onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  
 const firebaseConfig = {
 
 apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
@@ -226,6 +253,8 @@ measurementId: "G-SXJ8WSY2HX"
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+const auth = getAuth(app);
 
 window.addOffer = async function(){
 
@@ -274,7 +303,37 @@ document.getElementById("description").value = "";
 document.getElementById("details").value = "";
 
 }
+onAuthStateChanged(auth,(user)=>{
 
+if(user){
+
+if(
+user.email ===
+"u171744505@gmail.com"
+){
+
+document.getElementById(
+"admin-panel"
+).style.display = "block";
+
+}else{
+
+document.getElementById(
+"no-access"
+).style.display = "block";
+
+}
+
+}else{
+
+document.getElementById(
+"no-access"
+).style.display = "block";
+
+}
+
+});
+  
 </script>
 
 </body>
