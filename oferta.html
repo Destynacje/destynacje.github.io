@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Oferta — Destynacje</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef7ea;
+}
+
+header{
+background:#dff0d8;
+padding:20px;
+text-align:center;
+}
+
+header img{
+width:280px;
+max-width:90%;
+}
+
+nav{
+background:#6bbf59;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+padding:18px 25px;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+background:#57a548;
+}
+
+.hero{
+
+height:400px;
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:white;
+font-size:60px;
+font-weight:bold;
+
+}
+
+.container{
+
+max-width:1000px;
+
+margin:auto;
+
+padding:50px 20px;
+
+}
+
+.card{
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+
+}
+
+.price{
+
+font-size:34px;
+
+font-weight:bold;
+
+margin:20px 0;
+
+color:#4f9f3d;
+
+}
+
+button{
+
+background:#6bbf59;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+button:hover{
+background:#57a548;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png">
+
+</header>
+
+<nav>
+
+<a href="index.html">Strona główna</a>
+
+<a href="oferty.html">Oferty</a>
+
+<a href="profil.html">Profil</a>
+
+</nav>
+
+<div
+class="hero"
+id="hero">
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1 id="title"></h1>
+
+<div
+class="price"
+id="price">
+
+</div>
+
+<p id="description"></p>
+
+<br>
+
+<a href="oferty.html">
+
+<button>
+Powrót do ofert
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
+  
+authDomain: "destynacje-17720.firebaseapp.com",
+  
+projectId: "destynacje-17720",
+  
+storageBucket: "destynacje-17720.firebasestorage.app",
+  
+messagingSenderId: "538573490778",
+  
+appId: "1:538573490778:web:4579e973f76830f27ce663",
+  
+measurementId: "G-SXJ8WSY2HX"
+  
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const params =
+new URLSearchParams(window.location.search);
+
+const offerId =
+params.get("id");
+
+async function loadOffer(){
+
+const docRef =
+doc(db,"offers",offerId);
+
+const docSnap =
+await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const offer = docSnap.data();
+
+document.getElementById(
+"title"
+).innerText = offer.title;
+
+document.getElementById(
+"price"
+).innerText = offer.price;
+
+document.getElementById(
+"description"
+).innerText = offer.details;
+
+document.getElementById(
+"hero"
+).style.backgroundImage =
+`linear-gradient(rgba(0,0,0,0.4),
+rgba(0,0,0,0.4)),
+url('${offer.image}')`;
+
+}
+
+}
+
+loadOffer();
+
+</script>
+
+</body>
+</html>
