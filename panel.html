@@ -203,6 +203,14 @@ Dodaj ofertę
 class="success"
 id="success">
 
+<hr style="margin:40px 0;">
+
+<h2>Twoje oferty</h2>
+
+<div id="offers-list">
+
+</div>
+  
 </div>
 
 </div>
@@ -217,7 +225,10 @@ import {
 
 getFirestore,
 collection,
-addDoc
+addDoc,
+getDocs,
+deleteDoc,
+doc
 
 }
 
@@ -316,6 +327,8 @@ document.getElementById(
 ).innerText =
 "Oferta została dodana!";
 
+loadOffers();
+
 document.getElementById("title").value = "";
 
 document.getElementById("price").value = "";
@@ -357,7 +370,70 @@ document.getElementById(
 }
 
 });
-  
+async function loadOffers(){
+
+const offersList =
+document.getElementById(
+"offers-list"
+);
+
+offersList.innerHTML = "";
+
+const querySnapshot =
+await getDocs(collection(db,"offers"));
+
+querySnapshot.forEach((offerDoc)=>{
+
+const offer = offerDoc.data();
+
+offersList.innerHTML += `
+
+<div style="
+
+background:#f5f5f5;
+padding:20px;
+margin:20px 0;
+border-radius:15px;
+
+">
+
+<h3>${offer.title}</h3>
+
+<p>${offer.price}</p>
+
+<button
+onclick="deleteOffer('${offerDoc.id}')">
+
+Usuń
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+window.deleteOffer = async function(id){
+
+const confirmDelete =
+confirm(
+"Czy na pewno usunąć ofertę?"
+);
+
+if(!confirmDelete){
+return;
+}
+
+await deleteDoc(
+doc(db,"offers",id)
+);
+
+loadOffers();
+
+}
+loadOffers();
 </script>
 
 </body>
