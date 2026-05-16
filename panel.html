@@ -228,7 +228,8 @@ collection,
 addDoc,
 getDocs,
 deleteDoc,
-doc
+doc,
+updateDoc
 
 }
 
@@ -264,6 +265,8 @@ measurementId: "G-SXJ8WSY2HX"
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+let editingOfferId = null;
 
 const auth = getAuth(app);
 
@@ -308,16 +311,39 @@ await response.json();
 const imageUrl =
 data.data.url;
   
+if(editingOfferId){
+
+await updateDoc(
+
+doc(db,"offers",editingOfferId),
+
+{
+
+title:title,
+price:price,
+image:imageUrl,
+description:description,
+details:details
+
+}
+
+);
+
+editingOfferId = null;
+
+document.getElementById(
+"success"
+).innerText =
+"Oferta zaktualizowana!";
+
+}else{
+
 await addDoc(collection(db,"offers"),{
 
 title:title,
-
 price:price,
-
 image:imageUrl,
-
 description:description,
-
 details:details
 
 });
@@ -327,7 +353,34 @@ document.getElementById(
 ).innerText =
 "Oferta została dodana!";
 
+}
+
+document.getElementById(
+"success"
+).innerText =
+"Oferta została dodana!";
+
 loadOffers();
+
+document.getElementById(
+"title"
+).value = "";
+
+document.getElementById(
+"price"
+).value = "";
+
+document.getElementById(
+"description"
+).value = "";
+
+document.getElementById(
+"details"
+).value = "";
+
+document.getElementById(
+"image"
+).value = "";
 
 document.getElementById("title").value = "";
 
@@ -402,6 +455,13 @@ border-radius:15px;
 <p>${offer.price}</p>
 
 <button
+onclick="editOffer('${offerDoc.id}')">
+
+Edytuj
+
+</button>
+
+<button
 onclick="deleteOffer('${offerDoc.id}')">
 
 Usuń
@@ -433,6 +493,50 @@ doc(db,"offers",id)
 loadOffers();
 
 }
+
+window.editOffer = async function(id){
+
+editingOfferId = id;
+
+const querySnapshot =
+await getDocs(collection(db,"offers"));
+
+querySnapshot.forEach((offerDoc)=>{
+
+if(offerDoc.id === id){
+
+const offer =
+offerDoc.data();
+
+document.getElementById(
+"title"
+).value = offer.title;
+
+document.getElementById(
+"price"
+).value = offer.price;
+
+document.getElementById(
+"description"
+).value = offer.description;
+
+document.getElementById(
+"details"
+).value = offer.details;
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+});
+
+}
+
+});
+
+}
+
 loadOffers();
 </script>
 
