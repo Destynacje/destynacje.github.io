@@ -173,6 +173,21 @@ placeholder="Hasło">
 Zaloguj
 </button>
 
+<br><br>
+
+<button
+onclick="googleLogin()"
+
+style="
+background:white;
+color:black;
+border:1px solid #ccc;
+">
+
+Zaloguj przez Google
+
+</button>
+
 </div>
 
 <div class="login-box">
@@ -256,7 +271,9 @@ getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 signOut,
-onAuthStateChanged
+onAuthStateChanged,
+GoogleAuthProvider,
+signInWithPopup
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -289,6 +306,9 @@ measurementId: "G-SXJ8WSY2HX"
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
+const provider =
+new GoogleAuthProvider();
 
 const db = getFirestore(app);
 
@@ -453,6 +473,45 @@ document.getElementById(
 }
 
 });
+
+window.googleLogin =
+async function(){
+
+try{
+
+const result =
+await signInWithPopup(
+auth,
+provider
+);
+
+const user =
+result.user;
+
+const userRef =
+doc(db,"users",user.uid);
+
+await setDoc(userRef,{
+
+username:
+user.displayName,
+
+email:
+user.email
+
+},{merge:true});
+
+alert(
+"Zalogowano przez Google!"
+);
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
 
 </script>
 
