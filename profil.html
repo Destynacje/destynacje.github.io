@@ -474,8 +474,17 @@ document.getElementById(
 
 });
 
+
+let googleLoading = false;
+
 window.googleLogin =
 async function(){
+
+if(googleLoading){
+return;
+}
+
+googleLoading = true;
 
 try{
 
@@ -507,9 +516,13 @@ alert(
 
 }catch(error){
 
+console.log(error);
+
 alert(error.message);
 
 }
+
+googleLoading = false;
 
 }
 
