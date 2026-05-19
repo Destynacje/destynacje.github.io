@@ -263,6 +263,10 @@ Panel
 
 <script type="module">
 
+emailjs.init(
+"mA1fedfReso-vezqz"
+);
+  
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -367,6 +371,19 @@ email:email
 );
 
 alert("Konto utworzone!");
+
+emailjs.send(
+
+"service_tuz3fx4",
+
+"template_neatqvr",
+
+{
+
+username: username,
+email: email
+
+}
 
 })
 
@@ -527,6 +544,11 @@ googleLoading = false;
 }
 
 </script>
-
+  
+<script
+type="text/javascript"
+src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+  
 </body>
 </html>
