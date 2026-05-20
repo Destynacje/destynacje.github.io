@@ -238,6 +238,17 @@ Załóż konto
 <div class="account-info">
 <strong>Email:</strong>
 <span id="account-email"></span>
+<p>
+
+<b>Typ podróżnika:</b>
+
+<span id="traveler-type">
+
+Brak
+
+</span>
+
+</p>
 </div>
 
 <div class="logged">
@@ -479,6 +490,15 @@ document.getElementById(
 document.getElementById(
 "account-email"
 ).innerText = data.email;
+
+if(data.travelerType){
+
+document.getElementById(
+"traveler-type"
+).innerText =
+data.travelerType;
+
+}
 
 }
 
