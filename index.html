@@ -1,76 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Destynacje</title>
 
+<link
+rel="icon"
+type="image/png"
+href="./favicon.png?v=2">
+
 <style>
 
-.offers-grid{
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef7ea;
+color:#234;
+}
 
+header{
+background:#dff0d8;
+text-align:center;
+padding:20px;
+}
+
+header img{
+width:320px;
+max-width:90%;
+}
+
+nav{
+background:#6bbf59;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+padding:18px 25px;
+display:block;
+font-weight:bold;
+}
+
+nav a:hover{
+background:#57a548;
+}
+
+.hero{
+padding:80px 20px;
+text-align:center;
+
+background:
+linear-gradient(
+rgba(0,0,0,0.3),
+rgba(0,0,0,0.3)
+),
+
+url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+color:white;
+}
+
+.hero h1{
+font-size:60px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:22px;
+margin-bottom:30px;
+}
+
+button{
+background:#6bbf59;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#57a548;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:50px 20px;
+}
+
+.section-title{
+color:#4f9f3d;
+margin-bottom:20px;
+font-size:42px;
+text-align:center;
+}
+
+.how-it-works{
+padding:80px 20px;
+background:#eef7ea;
+}
+
+.steps-container{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:30px;
+flex-wrap:wrap;
+max-width:1400px;
+margin:auto;
+}
+
+.step-card{
+background:white;
+padding:40px 30px;
+border-radius:25px;
+width:300px;
+text-align:center;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.08);
+
+transition:0.3s;
+}
+
+.step-card:hover{
+transform:translateY(-10px);
+}
+
+.step-icon{
+font-size:70px;
+margin-bottom:25px;
+}
+
+.step-card h3{
+font-size:30px;
+margin-bottom:20px;
+color:#57a548;
+}
+
+.step-card p{
+font-size:18px;
+line-height:1.7;
+}
+
+.step-arrow{
+font-size:60px;
+font-weight:bold;
+color:#57a548;
+}
+
+.offers-grid{
 display:grid;
 
 grid-template-columns:
 repeat(auto-fit,minmax(280px,1fr));
 
 gap:30px;
-
 margin-top:40px;
-
 }
 
 .offer-card{
-
 background:white;
-
 border-radius:20px;
-
 overflow:hidden;
 
 box-shadow:
 0 8px 20px rgba(0,0,0,0.08);
 
 transition:0.3s;
-
 }
 
 .offer-card:hover{
-
 transform:translateY(-10px);
-
 }
 
 .offer-card img{
-
 width:100%;
 height:220px;
 object-fit:cover;
-
 }
 
 .offer-content{
-
 padding:20px;
-
 }
 
 .offer-content h3{
-
 margin-top:0;
 color:#57a548;
-
+font-size:28px;
 }
 
 .offer-price{
-
-font-size:26px;
+font-size:28px;
 font-weight:bold;
 margin:20px 0;
 color:#222;
-
 }
 
 .offer-button{
-
 display:inline-block;
 
 background:#6bbf59;
@@ -82,367 +224,104 @@ border-radius:10px;
 
 text-decoration:none;
 font-weight:bold;
-
 }
 
 .offer-button:hover{
-
 background:#57a548;
-
 }
 
-<script type="module">
-.how-it-works{
-
-padding:80px 20px;
-background:#eef7ea;
-
-}
-
-.how-it-works h2{
-
-text-align:center;
-font-size:42px;
-margin-bottom:60px;
-color:#2f5e2a;
-
-}
-
-.steps-container{
-
-display:flex;
-justify-content:center;
-align-items:center;
-gap:30px;
-flex-wrap:wrap;
-
-max-width:1400px;
-margin:auto;
-
-}
-
-.step-card{
-
+.news{
 background:white;
-padding:40px 30px;
-border-radius:25px;
-
-width:320px;
-
-text-align:center;
-
-box-shadow:
-0 8px 25px rgba(0,0,0,0.08);
-
-transition:0.3s;
-
-}
-
-.step-card:hover{
-
-transform:translateY(-10px);
-
-box-shadow:
-0 12px 30px rgba(0,0,0,0.12);
-
-}
-
-.step-icon{
-
-font-size:70px;
+padding:25px;
+border-radius:20px;
 margin-bottom:25px;
 
-}
-
-.step-card h3{
-
-font-size:28px;
-margin-bottom:20px;
-color:#57a548;
+box-shadow:
+0 6px 15px rgba(0,0,0,0.06);
 
 }
 
-.step-card p{
-
-font-size:18px;
-line-height:1.7;
-color:#444;
-
-}
-
-.step-arrow{
-
-font-size:60px;
-font-weight:bold;
-color:#57a548;
-
+footer{
+background:#4f9f3d;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:50px;
 }
 
 @media(max-width:1100px){
 
 .steps-container{
-
 flex-direction:column;
-
 }
 
 .step-arrow{
-
 transform:rotate(90deg);
-
-}
-
-}
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-signOut
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
-authDomain: "destynacje-17720.firebaseapp.com",
-projectId: "destynacje-17720",
-storageBucket: "destynacje-17720.firebasestorage.app",
-messagingSenderId: "538573490778",
-appId: "1:538573490778:web:4579e973f76830f27ce663"
-measurementId: "G-SXJ8WSY2HX"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-window.register = function(){
-
-const email = document.getElementById("email").value;
-
-const password = document.getElementById("password").value;
-
-createUserWithEmailAndPassword(auth,email,password)
-
-.then(() => {
-
-alert("Konto utworzone!");
-
-})
-
-.catch((error) => {
-
-alert(error.message);
-
-});
-
-}
-
-window.login = function(){
-
-const email = document.getElementById("email").value;
-
-const password = document.getElementById("password").value;
-
-signInWithEmailAndPassword(auth,email,password)
-
-.then(() => {
-
-alert("Zalogowano!");
-
-})
-
-.catch((error) => {
-
-alert(error.message);
-
-});
-
-}
-
-window.logout = function(){
-
-signOut(auth)
-
-.then(() => {
-
-alert("Wylogowano!");
-
-});
-
-}
-
-</script>
-    
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#eef7ea;
-    color:#234;
-}
-
-header{
-    background:#dff0d8;
-    text-align:center;
-    padding:20px;
-}
-
-header img{
-    width:320px;
-    max-width:90%;
-}
-
-nav{
-    background:#6bbf59;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    padding:18px 25px;
-    display:block;
-    font-weight:bold;
-}
-
-nav a:hover{
-    background:#57a548;
-}
-
-.hero{
-    padding:80px 20px;
-    text-align:center;
-    background:linear-gradient(
-    rgba(0,0,0,0.3),
-    rgba(0,0,0,0.3)),
-    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
-    
-    background-size:cover;
-    background-position:center;
-    
-    color:white;
 }
 
 .hero h1{
-    font-size:50px;
+font-size:42px;
 }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:40px 20px;
-}
-
-.section-title{
-    color:#4f9f3d;
-    margin-bottom:20px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-
-.card-content{
-    padding:20px;
-}
-
-button{
-    background:#6bbf59;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#57a548;
-}
-
-.news{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:20px;
-}
-
-footer{
-    background:#4f9f3d;
-    color:white;
-    text-align:center;
-    padding:30px;
-    margin-top:50px;
 }
 
 </style>
 
-<head>
-
-<meta charset="UTF-8">
-
-<link
-rel="icon"
-type="image/png"
-href="favicon.png">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+</head>
 
 <body>
 
 <header>
 
-<img src="logo.png" alt="Destynacje logo">
+<img src="logo.png"
+alt="Destynacje logo">
 
 </header>
 
 <nav>
 
-<a href="oferty.html">Oferty</a>
+<a href="oferty.html">
+Oferty
+</a>
 
-<a href="test.html">Test DNA podróżnika</a>
+<a href="test.html">
+Test DNA podróżnika
+</a>
 
-<a href="#aktualnosci">Aktualności</a>
+<a href="#aktualnosci">
+Aktualności
+</a>
 
-<a href="profil.html">Profil</a>
+<a href="profil.html">
+Profil
+</a>
 
 </nav>
-    
+
 <section class="hero">
 
-<h1>Odkrywaj świat</h1>
+<h1>
+Odkrywaj świat
+</h1>
 
-<p>Najlepsze oferty podróży w jednym miejscu</p>
+<p>
+Najlepsze oferty podróży w jednym miejscu
+</p>
 
-<button>Zobacz oferty</button>
+<button onclick="location.href='oferty.html'">
+
+Zobacz oferty
+
+</button>
 
 </section>
 
 <section class="how-it-works">
 
-<h2>
+<h2 class="section-title">
+
 Jak wygląda cały proces zamówienia?
+
 </h2>
 
 <div class="steps-container">
@@ -519,38 +398,60 @@ bez dodatkowych kosztów pośredników.
 
 <div class="container">
 
-<h2 id="oferty" class="section-title">Polecane oferty</h2>
+<h2 class="section-title">
+
+Polecane oferty
+
+</h2>
 
 <div class="offers-grid"
 id="home-offers">
 
 </div>
 
-</div>
+<h2
+id="aktualnosci"
+class="section-title">
 
-<h2 id="aktualnosci" class="section-title">
 Aktualności
+
 </h2>
 
 <div class="news">
-<h3>Nowe kierunki na lato 2025</h3>
-<p>Dodaliśmy nowe oferty podróży do Azji i Skandynawii.</p>
+
+<h3>
+Nowe kierunki na lato 2025
+</h3>
+
+<p>
+Dodaliśmy nowe oferty podróży
+do Azji i Skandynawii.
+</p>
+
 </div>
 
 <div class="news">
-<h3>Test podróżnika już dostępny</h3>
-<p>Sprawdź jaki typ podróżowania pasuje do Ciebie.</p>
-</div>
+
+<h3>
+Test podróżnika już dostępny
+</h3>
+
+<p>
+Sprawdź jaki typ podróżowania
+pasuje do Ciebie.
+</p>
 
 </div>
 
-    
-
 </div>
-    
+
 <footer>
 
-<p>© Destynacje.pl — Samo się (nie) ogarnie</p>
+<p>
+
+© Destynacje.pl — Samo się (nie) ogarnie
+
+</p>
 
 </footer>
 
@@ -660,6 +561,7 @@ Zobacz ofertę
 loadHomeOffers();
 
 </script>
-    
+
 </body>
+
 </html>
