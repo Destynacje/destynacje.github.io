@@ -434,74 +434,96 @@ bez dodatkowych kosztów pośredników.
 
 <h2 id="oferty" class="section-title">Polecane oferty</h2>
 
-<h2 id="test" class="section-title">
-Test jakim podróżnikiem jesteś
-</h2>
-
-<div class="news">
-
-<p>
-Lubisz luksus, przygody czy backpacking?
-</p>
-
-<button>Rozpocznij test</button>
-
-</div>
-<div class="cards">
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>Grecja</h3>
-
-<p>7 dni all inclusive</p>
-
-<p><strong>2999 zł</strong></p>
-
-<button>Sprawdź</button>
+<div class="offers-grid"
+id="home-offers">
 
 </div>
 
-</div>
+.offers-grid{
 
-<div class="card">
+display:grid;
 
-<img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1200&auto=format&fit=crop">
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
 
-<div class="card-content">
+gap:30px;
 
-<h3>Norwegia</h3>
+margin-top:40px;
 
-<p>Fiordy i trekking</p>
+}
 
-<p><strong>4599 zł</strong></p>
+.offer-card{
 
-<button>Sprawdź</button>
+background:white;
 
-</div>
+border-radius:20px;
 
-</div>
+overflow:hidden;
 
-<div class="card">
+box-shadow:
+0 8px 20px rgba(0,0,0,0.08);
 
-<img src="https://images.unsplash.com/photo-1518544866330-95a3a1f3c9c1?q=80&w=1200&auto=format&fit=crop">
+transition:0.3s;
 
-<div class="card-content">
+}
 
-<h3>Bali</h3>
+.offer-card:hover{
 
-<p>Egzotyczne wakacje</p>
+transform:translateY(-10px);
 
-<p><strong>5999 zł</strong></p>
+}
 
-<button>Sprawdź</button>
+.offer-card img{
 
-</div>
+width:100%;
+height:220px;
+object-fit:cover;
 
-</div>
+}
+
+.offer-content{
+
+padding:20px;
+
+}
+
+.offer-content h3{
+
+margin-top:0;
+color:#57a548;
+
+}
+
+.offer-price{
+
+font-size:26px;
+font-weight:bold;
+margin:20px 0;
+color:#222;
+
+}
+
+.offer-button{
+
+display:inline-block;
+
+background:#6bbf59;
+color:white;
+
+padding:12px 22px;
+
+border-radius:10px;
+
+text-decoration:none;
+font-weight:bold;
+
+}
+
+.offer-button:hover{
+
+background:#57a548;
+
+}
 
 </div>
 
@@ -531,5 +553,112 @@ Aktualności
 
 </footer>
 
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+collection,
+getDocs,
+query,
+orderBy,
+limit
+
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
+
+authDomain: "destynacje-17720.firebaseapp.com",
+
+projectId: "destynacje-17720",
+
+storageBucket: "destynacje-17720.firebasestorage.app",
+
+messagingSenderId: "538573490778",
+
+appId: "1:538573490778:web:4579e973f76830f27ce663"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const offersContainer =
+document.getElementById(
+"home-offers"
+);
+
+async function loadHomeOffers(){
+
+const q = query(
+
+collection(db,"offers"),
+
+orderBy("createdAt","desc"),
+
+limit(3)
+
+);
+
+const querySnapshot =
+await getDocs(q);
+
+querySnapshot.forEach((doc)=>{
+
+const offer = doc.data();
+
+offersContainer.innerHTML += `
+
+<div class="offer-card">
+
+<img src="${offer.image}">
+
+<div class="offer-content">
+
+<h3>
+${offer.title}
+</h3>
+
+<p>
+${offer.description}
+</p>
+
+<div class="offer-price">
+
+${offer.price}
+
+</div>
+
+<a
+href="oferty.html"
+class="offer-button">
+
+Zobacz ofertę
+
+</a>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadHomeOffers();
+
+</script>
+    
 </body>
 </html>
