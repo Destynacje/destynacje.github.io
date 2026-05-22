@@ -516,6 +516,8 @@ await getDocs(q);
 
 querySnapshot.forEach((doc)=>{
 
+const offerId = doc.id;
+  
 const offer = doc.data();
 
 offersContainer.innerHTML += `
@@ -541,7 +543,7 @@ ${offer.price}
 </div>
 
 <a
-href="oferty.html"
+href="oferta.html?id=${offerId}"
 class="offer-button">
 
 Zobacz ofertę
