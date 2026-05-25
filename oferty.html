@@ -259,6 +259,30 @@ Do 4000 zł
 
 </select>
 
+<select id="sort-offers">
+
+<option value="">
+Sortowanie
+</option>
+
+<option value="name-asc">
+Nazwa A-Z
+</option>
+
+<option value="name-desc">
+Nazwa Z-A
+</option>
+
+<option value="price-asc">
+Cena rosnąco
+</option>
+
+<option value="price-desc">
+Cena malejąco
+</option>
+
+</select>
+
 </div>
 
 <div class="container">
@@ -317,42 +341,59 @@ offersContainer.innerHTML = "";
 const querySnapshot =
 await getDocs(collection(db,"offers"));
 
+let offers = [];
+
 querySnapshot.forEach((doc)=>{
 
-const offer = doc.data();
+offers.push({
 
-const selectedCategory =
+id: doc.id,
+...doc.data()
+
+});
+
+});
+
+const sortValue =
 document.getElementById(
-"filter-category"
+"sort-offers"
 ).value;
 
-const selectedPrice =
-document.getElementById(
-"filter-price"
-).value;
+if(sortValue === "name-asc"){
 
-if(
-
-selectedCategory &&
-offer.category !== selectedCategory
-
-){
-
-return;
+offers.sort((a,b)=>
+a.title.localeCompare(b.title)
+);
 
 }
 
-if(
+if(sortValue === "name-desc"){
 
-selectedPrice &&
-parseInt(offer.price) >
-parseInt(selectedPrice)
-
-){
-
-return;
+offers.sort((a,b)=>
+b.title.localeCompare(a.title)
+);
 
 }
+
+if(sortValue === "price-asc"){
+
+offers.sort((a,b)=>
+parseInt(a.price) -
+parseInt(b.price)
+);
+
+}
+
+if(sortValue === "price-desc"){
+
+offers.sort((a,b)=>
+parseInt(b.price) -
+parseInt(a.price)
+);
+
+}
+
+offers.forEach((offer)=>{
 
 offersContainer.innerHTML += `
 
@@ -362,18 +403,25 @@ offersContainer.innerHTML += `
 
 <div class="offer-content">
 
-<h2>${offer.title}</h2>
+<h2>
+${offer.title}
+</h2>
 
-<p>${offer.description}</p>
+<p>
+${offer.description}
+</p>
 
 <div class="price">
 ${offer.price}
 </div>
 
-<a href="oferta.html?id=${doc.id}">
+<a
+href="oferta.html?id=${offer.id}">
 
 <button>
+
 Zobacz ofertę
+
 </button>
 
 </a>
@@ -399,6 +447,13 @@ loadOffers
 
 document.getElementById(
 "filter-price"
+).addEventListener(
+"change",
+loadOffers
+);
+
+document.getElementById(
+"sort-offers"
 ).addEventListener(
 "change",
 loadOffers
