@@ -78,7 +78,8 @@ color:#4f9f3d;
 }
 
 input,
-textarea{
+textarea,
+select{
 
 width:100%;
 
@@ -189,6 +190,58 @@ id="price"
 type="text"
 placeholder="Cena">
 
+<div class="filters">
+
+<select id="filter-category">
+
+<option value="">
+Wszystkie typy
+</option>
+
+<option value="citybreak">
+City Break
+</option>
+
+<option value="natura">
+Natura
+</option>
+
+<option value="luksus">
+Luksus
+</option>
+
+<option value="backpacking">
+Backpacking
+</option>
+
+<option value="relaks">
+Relaks
+</option>
+
+</select>
+
+<select id="filter-price">
+
+<option value="">
+Dowolna cena
+</option>
+
+<option value="1000">
+Do 1000 zł
+</option>
+
+<option value="2000">
+Do 2000 zł
+</option>
+
+<option value="4000">
+Do 4000 zł
+</option>
+
+</select>
+
+</div>
+
 <input
 id="image"
 type="file"
@@ -285,6 +338,9 @@ document.getElementById("title").value;
 const price =
 document.getElementById("price").value;
 
+const category =
+document.getElementById("category").value;
+
 const imageFile =
 document.getElementById("image").files[0];
 
@@ -349,6 +405,7 @@ await addDoc(collection(db,"offers"),{
 
 title:title,
 price:price,
+category: category,
 image:imageUrl,
 description:description,
 details:details,
