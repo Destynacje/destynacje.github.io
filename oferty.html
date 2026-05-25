@@ -156,6 +156,29 @@ button:hover{
 background:#57a548;
 }
 
+.filters{
+
+display:flex;
+gap:20px;
+justify-content:center;
+margin:40px 0;
+flex-wrap:wrap;
+
+}
+
+.filters select{
+
+padding:14px 18px;
+border-radius:12px;
+border:none;
+
+font-size:18px;
+
+box-shadow:
+0 4px 10px rgba(0,0,0,0.08);
+
+}
+
 </style>
 
 </head>
@@ -183,6 +206,58 @@ background:#57a548;
 <div class="hero">
 
 Nasze oferty
+
+</div>
+
+<div class="filters">
+
+<select id="filter-category">
+
+<option value="">
+Wszystkie typy
+</option>
+
+<option value="citybreak">
+City Break
+</option>
+
+<option value="natura">
+Natura
+</option>
+
+<option value="luksus">
+Luksus
+</option>
+
+<option value="backpacking">
+Backpacking
+</option>
+
+<option value="relaks">
+Relaks
+</option>
+
+</select>
+
+<select id="filter-price">
+
+<option value="">
+Dowolna cena
+</option>
+
+<option value="1000">
+Do 1000 zł
+</option>
+
+<option value="2000">
+Do 2000 zł
+</option>
+
+<option value="4000">
+Do 4000 zł
+</option>
+
+</select>
 
 </div>
 
@@ -237,12 +312,47 @@ document.getElementById("offers-container");
 
 async function loadOffers(){
 
+offersContainer.innerHTML = "";
+
 const querySnapshot =
 await getDocs(collection(db,"offers"));
 
 querySnapshot.forEach((doc)=>{
 
 const offer = doc.data();
+
+const selectedCategory =
+document.getElementById(
+"filter-category"
+).value;
+
+const selectedPrice =
+document.getElementById(
+"filter-price"
+).value;
+
+if(
+
+selectedCategory &&
+offer.category !== selectedCategory
+
+){
+
+return;
+
+}
+
+if(
+
+selectedPrice &&
+parseInt(offer.price) >
+parseInt(selectedPrice)
+
+){
+
+return;
+
+}
 
 offersContainer.innerHTML += `
 
@@ -279,6 +389,20 @@ Zobacz ofertę
 }
 
 loadOffers();
+
+document.getElementById(
+"filter-category"
+).addEventListener(
+"change",
+loadOffers
+);
+
+document.getElementById(
+"filter-price"
+).addEventListener(
+"change",
+loadOffers
+);
 
 </script>
   
