@@ -229,7 +229,7 @@ type="text"
 placeholder="Krótki opis">
 
 <textarea
-id="fullDescription"
+id="details"
 placeholder="Pełny opis oferty"></textarea>
 
 <button onclick="addOffer()">
@@ -323,9 +323,9 @@ document.getElementById("image").files[0];
 const description =
 document.getElementById("description").value;
 
-const fullDescription =
+const details =
 document.getElementById(
-"fullDescription").value;
+"details").value;
 
 formData.append(
 "image",
@@ -361,7 +361,7 @@ title:title,
 price:price,
 image:imageUrl,
 description:description,
-offer.fullDescription
+offer.details
 
 }
 
@@ -383,7 +383,7 @@ price:price,
 category: category,
 image:imageUrl,
 description:description,
-offer.fullDescription,
+offer.details,
 
 createdAt: Date.now(),
 
