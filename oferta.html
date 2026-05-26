@@ -302,6 +302,18 @@ new URLSearchParams(window.location.search);
 const offerId =
 params.get("id");
 
+if(!offerId){
+
+document.body.innerHTML = `
+<h1 style="text-align:center;padding:50px;">
+Nie wybrano oferty.
+</h1>
+`;
+
+throw new Error("Brak ID oferty");
+
+}
+  
 async function loadOffer(){
 
 const docRef =
@@ -339,7 +351,7 @@ url('${offer.image}')`;
 
 loadOffer();
 
-emailjs.init(mA1fedfReso-vezqz);
+window.emailjs.init("mA1fedfReso-vezqz");
 
 document
 .getElementById("contact-form")
@@ -347,7 +359,7 @@ document
 
 e.preventDefault();
 
-emailjs.send(
+window.emailjs.send(
 "service_tuz3fx4",
 "template_s3wb4ba",
 {
@@ -362,6 +374,9 @@ document.getElementById("daily_plan").value,
 
 client_email:
 document.getElementById("client_email").value,
+
+name:
+document.getElementById("client_username").value,
 
 message:
 document.getElementById("message").value
