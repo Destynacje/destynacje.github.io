@@ -168,6 +168,82 @@ id="price">
 
 <br>
 
+<h2>Zapytaj o szczegóły</h2>
+
+<form id="contact-form">
+
+<label>Ile osób dotyczy wyjazd?</label>
+<br><br>
+
+<input type="number"
+id="persons"
+required
+style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;">
+
+<br><br>
+
+<label>Czy chcesz plan wycieczki na każdy dzień?</label>
+
+<br><br>
+
+<select
+id="daily_plan"
+style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;">
+
+<option value="Tak">Tak</option>
+
+<option value="Nie">Nie</option>
+
+</select>
+
+<br><br>
+
+<label>Twój email</label>
+
+<br><br>
+
+<input
+type="email"
+id="client_email"
+required
+style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;">
+
+<br><br>
+
+<label>Twoja nazwa</label>
+
+<br><br>
+
+<input
+type="username"
+id="client_username"
+required
+style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;">
+
+<br><br>
+
+<label>Dodatkowa wiadomość</label>
+
+<br><br>
+
+<textarea
+id="message"
+rows="5"
+style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;"></textarea>
+
+<br><br>
+
+<button type="submit">
+Wyślij zapytanie
+</button>
+
+</form>
+
+<br>
+<br>
+
+<div id="status"></div>
+  
 <a href="oferty.html">
 
 <button>
@@ -179,6 +255,8 @@ Powrót do ofert
 </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script type="module">
 
@@ -261,6 +339,56 @@ url('${offer.image}')`;
 
 loadOffer();
 
+emailjs.init(mA1fedfReso-vezqz);
+
+document
+.getElementById("contact-form")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+emailjs.send(
+"service_tuz3fx4",
+"template_s3wb4ba",
+{
+offer_title:
+document.getElementById("title").innerText,
+
+persons:
+document.getElementById("persons").value,
+
+daily_plan:
+document.getElementById("daily_plan").value,
+
+client_email:
+document.getElementById("client_email").value,
+
+message:
+document.getElementById("message").value
+}
+
+)
+
+.then(function(){
+
+document.getElementById("status").innerHTML =
+"✅ Zapytanie zostało wysłane!";
+
+document.getElementById("contact-form").reset();
+
+})
+
+.catch(function(error){
+
+document.getElementById("status").innerHTML =
+"❌ Wystąpił błąd.";
+
+console.log(error);
+
+});
+
+});
+  
 </script>
 
 </body>
