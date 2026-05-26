@@ -354,6 +354,45 @@ id: doc.id,
 
 });
 
+const selectedCategory =
+document.getElementById(
+"filter-category"
+).value;
+
+const selectedPrice =
+document.getElementById(
+"filter-price"
+).value;
+
+offers = offers.filter((offer)=>{
+
+if(
+
+selectedCategory &&
+offer.category !== selectedCategory
+
+){
+
+return false;
+
+}
+
+if(
+
+selectedPrice &&
+parseInt(offer.price) >
+parseInt(selectedPrice)
+
+){
+
+return false;
+
+}
+
+return true;
+
+});
+
 const sortValue =
 document.getElementById(
 "sort-offers"
