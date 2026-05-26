@@ -242,7 +242,10 @@ Wyślij zapytanie
 <br>
 <br>
 
-<div id="status"></div>
+<div
+id="status"
+style="margin-bottom:25px;font-weight:bold;">
+</div>
   
 <a href="oferty.html">
 
@@ -274,6 +277,12 @@ getDoc
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyBtMdb6VY6RxNgjPP__vtXdHknufFlaYhs",
@@ -295,6 +304,8 @@ measurementId: "G-SXJ8WSY2HX"
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+const auth = getAuth(app);
 
 const params =
 new URLSearchParams(window.location.search);
@@ -351,6 +362,32 @@ url('${offer.image}')`;
 
 loadOffer();
 
+onAuthStateChanged(auth, (user) => {
+
+if(user){
+
+const emailField =
+document.getElementById("client_email");
+
+const nameField =
+document.getElementById("client_username");
+
+emailField.value = user.email || "";
+
+nameField.value = user.displayName || "";
+
+emailField.readOnly = true;
+
+nameField.readOnly = true;
+
+emailField.style.background = "#f0f0f0";
+
+nameField.style.background = "#f0f0f0";
+
+}
+
+});
+  
 window.emailjs.init("mA1fedfReso-vezqz");
 
 document
