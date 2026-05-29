@@ -469,6 +469,18 @@ galleryContainer.innerHTML += `
 <img
 src="${img}"
 
+onclick="alert('${img}')"
+
+style="
+width:100%;
+border-radius:15px;
+cursor:pointer;
+height:220px;
+object-fit:cover;
+"
+>
+`;
+
 style="
 width:100%;
 border-radius:15px;
@@ -493,6 +505,12 @@ onclick="openImage(${index})"
 loadOffer();
 
 window.openImage = function(index){
+
+console.log("Kliknięto zdjęcie:", index);
+
+console.log("Galeria:", galleryImages);
+
+console.log("URL zdjęcia:", galleryImages[index]);
 
 currentImageIndex = index;
 
