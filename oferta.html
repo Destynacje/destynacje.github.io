@@ -251,7 +251,20 @@ Wyślij zapytanie
 id="status"
 style="margin-bottom:25px;font-weight:bold;">
 </div>
-  
+
+<h2>Galeria zdjęć</h2>
+
+<div
+id="gallery-container"
+style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:20px;
+">
+
+</div>
+
 <a href="oferty.html">
 
 <button>
@@ -372,6 +385,37 @@ document.getElementById(
 rgba(0,0,0,0.4)),
 url('${offer.image}')`;
 
+const galleryContainer =
+document.getElementById("gallery-container");
+
+galleryContainer.innerHTML = "";
+
+if(offer.gallery){
+
+offer.gallery.forEach((img)=>{
+
+galleryContainer.innerHTML += `
+
+<img
+src="${img}"
+
+style="
+width:100%;
+border-radius:15px;
+cursor:pointer;
+height:220px;
+object-fit:cover;
+"
+
+onclick="openImage('${img}')"
+>
+
+`;
+
+});
+
+}
+
 }
 
 }
@@ -457,6 +501,31 @@ console.log(error);
 
 });
   
+</script>
+
+<script>
+
+window.openImage = function(src){
+
+const newWindow =
+window.open("");
+
+newWindow.document.write(`
+
+<img
+src="${src}"
+style="
+width:100%;
+margin:0;
+background:black;
+"
+
+>
+
+`);
+
+}
+
 </script>
 
 </body>
