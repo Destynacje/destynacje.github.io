@@ -379,7 +379,7 @@ onAuthStateChanged
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 let galleryImages = [];
-let currentImageIndex = 0;
+window.currentImageIndex = 0;
 
 const firebaseConfig = {
 
@@ -458,7 +458,7 @@ const galleryContainer =
 document.getElementById("gallery-container");
 
 galleryContainer.innerHTML = "";
-galleryImages = offer.gallery || [];
+window.galleryImages = offer.gallery || [];
   
 if(offer.gallery){
 
@@ -491,6 +491,70 @@ onclick="openImage(${index})"
 }
 
 loadOffer();
+
+window.openImage = function(index){
+
+currentImageIndex = index;
+
+document.getElementById("lightbox").style.display = "block";
+
+document.getElementById("lightboxImage").src =
+galleryImages[index];
+
+}
+
+document.getElementById("closeLightbox")
+.addEventListener("click",()=>{
+
+document.getElementById("lightbox").style.display =
+"none";
+
+});
+
+document.getElementById("nextImage")
+.addEventListener("click",()=>{
+
+currentImageIndex++;
+
+if(currentImageIndex >= galleryImages.length){
+
+currentImageIndex = 0;
+
+}
+
+document.getElementById("lightboxImage").src =
+galleryImages[currentImageIndex];
+
+});
+
+document.getElementById("prevImage")
+.addEventListener("click",()=>{
+
+currentImageIndex--;
+
+if(currentImageIndex < 0){
+
+currentImageIndex =
+galleryImages.length - 1;
+
+}
+
+document.getElementById("lightboxImage").src =
+galleryImages[currentImageIndex];
+
+});
+
+document.getElementById("lightbox")
+.addEventListener("click",(e)=>{
+
+if(e.target.id === "lightbox"){
+
+document.getElementById("lightbox").style.display =
+"none";
+
+}
+
+});
 
 onAuthStateChanged(auth, (user) => {
 
@@ -571,78 +635,6 @@ console.log(error);
 
 });
   
-</script>
-
-<script>
-
-window.openImage = function(index){
-
-currentImageIndex = index;
-
-document.getElementById("lightbox").style.display = "block";
-
-document.getElementById("lightboxImage").src =
-galleryImages[index];
-
-}
-
-document
-.getElementById("closeLightbox")
-.addEventListener("click",()=>{
-
-document.getElementById("lightbox").style.display =
-"none";
-
-});
-
-document
-.getElementById("nextImage")
-.addEventListener("click",()=>{
-
-currentImageIndex++;
-
-if(currentImageIndex >= galleryImages.length){
-
-currentImageIndex = 0;
-
-}
-
-document.getElementById("lightboxImage").src =
-galleryImages[currentImageIndex];
-
-});
-
-document
-.getElementById("prevImage")
-.addEventListener("click",()=>{
-
-currentImageIndex--;
-
-if(currentImageIndex < 0){
-
-currentImageIndex =
-galleryImages.length - 1;
-
-}
-
-document.getElementById("lightboxImage").src =
-galleryImages[currentImageIndex];
-
-});
-
-document
-.getElementById("lightbox")
-.addEventListener("click",(e)=>{
-
-if(e.target.id === "lightbox"){
-
-document.getElementById("lightbox").style.display =
-"none";
-
-}
-
-});
-
 </script>
 
 </body>
