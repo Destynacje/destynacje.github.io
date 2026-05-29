@@ -218,10 +218,20 @@ Relaks
 
 </select>
 
+<label>Zdjęcie główne</label>
+
 <input
 id="image"
 type="file"
 accept="image/png, image/jpeg">
+
+<label>Galeria zdjęć</label>
+
+<input
+id="gallery"
+type="file"
+accept="image/png, image/jpeg"
+multiple>
 
 <input
 id="description"
@@ -320,6 +330,9 @@ document.getElementById("category").value;
 const imageFile =
 document.getElementById("image").files[0];
 
+const galleryFiles =
+document.getElementById("gallery").files;
+
 const description =
 document.getElementById("description").value;
 
@@ -352,7 +365,35 @@ await response.json();
 
 const imageUrl =
 data.data.url;
-  
+
+const galleryUrls = [];
+
+for(const file of galleryFiles){
+
+const galleryFormData = new FormData();
+
+galleryFormData.append("image", file);
+
+const galleryResponse = await fetch(
+
+"https://api.imgbb.com/1/upload?key=222928cb2d939b8f9613d5c7d1cb4e43",
+
+{
+method:"POST",
+body:galleryFormData
+}
+
+);
+
+const galleryData =
+await galleryResponse.json();
+
+galleryUrls.push(
+galleryData.data.url
+);
+
+}
+
 if(editingOfferId){
 
 await updateDoc(
@@ -366,7 +407,8 @@ price:price,
 category:category,
 image:imageUrl,
 description:description,
-details:details
+details:details,
+gallery:galleryUrls
 
 }
 
@@ -389,6 +431,7 @@ category: category,
 image:imageUrl,
 description:description,
 details:details,
+gallery:galleryUrls,
 
 createdAt: Date.now(),
 
