@@ -378,7 +378,7 @@ onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-let galleryImages = [];
+window.galleryImages = [];
 window.currentImageIndex = 0;
 
 const firebaseConfig = {
@@ -469,18 +469,6 @@ galleryContainer.innerHTML += `
 <img
 src="${img}"
 
-onclick="alert('${img}')"
-
-style="
-width:100%;
-border-radius:15px;
-cursor:pointer;
-height:220px;
-object-fit:cover;
-"
->
-`;
-
 style="
 width:100%;
 border-radius:15px;
@@ -508,16 +496,16 @@ window.openImage = function(index){
 
 console.log("Kliknięto zdjęcie:", index);
 
-console.log("Galeria:", galleryImages);
+console.log("Galeria:", window.galleryImages);
 
-console.log("URL zdjęcia:", galleryImages[index]);
+console.log("URL zdjęcia:", window.galleryImages[index]);
 
 currentImageIndex = index;
 
 document.getElementById("lightbox").style.display = "block";
 
 document.getElementById("lightboxImage").src =
-galleryImages[index];
+window.galleryImages[index];
 
 }
 
@@ -534,14 +522,14 @@ document.getElementById("nextImage")
 
 currentImageIndex++;
 
-if(currentImageIndex >= galleryImages.length){
+if(currentImageIndex >= window.galleryImages.length){
 
 currentImageIndex = 0;
 
 }
 
 document.getElementById("lightboxImage").src =
-galleryImages[currentImageIndex];
+window.galleryImages[currentImageIndex];
 
 });
 
@@ -553,12 +541,12 @@ currentImageIndex--;
 if(currentImageIndex < 0){
 
 currentImageIndex =
-galleryImages.length - 1;
+window.galleryImages.length - 1;
 
 }
 
 document.getElementById("lightboxImage").src =
-galleryImages[currentImageIndex];
+window.galleryImages[currentImageIndex];
 
 });
 
