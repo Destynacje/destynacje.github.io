@@ -319,7 +319,8 @@ import {
 getFirestore,
 doc,
 setDoc,
-getDoc
+getDoc,
+deleteDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -366,15 +367,26 @@ alert("Nazwa użytkownika za krótka");
 return;
 }
 
-const usernameRef =
+const activeUsernameRef =
 doc(db,"usernames",username);
 
-const usernameSnap =
-await getDoc(usernameRef);
+const activeUsernameSnap =
+await getDoc(activeUsernameRef);
 
-if(usernameSnap.exists()){
-alert("Ta nazwa użytkownika już istnieje");
-return;
+if(activeUsernameSnap.exists()){
+ alert("Ta nazwa użytkownika już istnieje");
+ return;
+}
+
+const reservedUsernameRef =
+doc(db,"reservedUsernames",username);
+
+const reservedUsernameSnap =
+await getDoc(reservedUsernameRef);
+
+if(reservedUsernameSnap.exists()){
+ alert("Ta nazwa użytkownika jest obecnie zarezerwowana");
+ return;
 }
 
 createUserWithEmailAndPassword(
@@ -385,25 +397,19 @@ password
 
 .then(async(userCredential)=>{
 
-await setDoc(
-
-doc(db,"usernames",username),
-{
-uid:userCredential.user.uid
-}
-
+localStorage.setItem(
+ "pendingUsername",
+ username
 );
-
 await setDoc(
-
-doc(db,"users",userCredential.user.uid),
-{
-username:username,
-email:email
-}
-
+ doc(db,"reservedUsernames",username),
+ {
+  uid:userCredential.user.uid,
+  email:email,
+  createdAt:Date.now()
+ }
 );
-
+ 
 await sendEmailVerification(
  userCredential.user
 );
@@ -475,6 +481,70 @@ onAuthStateChanged(auth, async(user)=>{
 
 if(user){
 
+await user.reload();
+
+if(user.emailVerified){
+
+ const pendingRef =
+ doc(
+  db,
+  "pendingUsers",
+  user.uid
+ );
+
+ const pendingSnap =
+ await getDoc(pendingRef);
+
+ if(pendingSnap.exists()){
+
+  const pendingData =
+  pendingSnap.data();
+
+  const username =
+  pendingData.username;
+
+  await setDoc(
+   doc(db,"users",user.uid),
+   {
+    username: username,
+    email: user.email
+   }
+  );
+
+  await setDoc(
+   doc(db,"usernames",username),
+   {
+    uid:user.uid
+   }
+  );
+
+ await deleteDoc(
+ doc(db,"reservedUsernames",username)
+);
+
+  await deleteDoc(
+   pendingRef
+  );
+
+ }
+
+}
+
+await sendEmailVerification(
+ userCredential.user
+);
+
+await signOut(auth);
+
+alert(
+ "Sprawdź skrzynkę email i aktywuj konto."
+);
+
+ localStorage.removeItem(
+  "pendingUsername"
+ );
+}
+ 
 document.getElementById(
 "auth-container"
 ).style.display = "none";
