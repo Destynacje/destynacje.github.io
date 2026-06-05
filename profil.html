@@ -310,7 +310,8 @@ signInWithEmailAndPassword,
 signOut,
 onAuthStateChanged,
 GoogleAuthProvider,
-signInWithPopup
+signInWithPopup,
+sendEmailVerification
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -403,21 +404,12 @@ email:email
 
 );
 
-alert("Konto utworzone!");
+await sendEmailVerification(
+ userCredential.user
+);
 
-emailjs.send(
-
-"service_tuz3fx4",
-
-"template_neatqvr",
-
-{
-
-username: username,
-email: email
-
-}
-
+alert(
+ "Na podany adres email wysłano link aktywacyjny."
 );
 
 })
@@ -428,7 +420,7 @@ alert(error.message);
 
 }
 
-window.login = function(){
+window.login = async function(){
 
 const email =
 document.getElementById("login-email").value;
@@ -436,19 +428,37 @@ document.getElementById("login-email").value;
 const password =
 document.getElementById("login-password").value;
 
-signInWithEmailAndPassword(
-auth,
-email,
-password
-)
+try{
 
-.then(()=>{
+const userCredential =
+await signInWithEmailAndPassword(
+ auth,
+ email,
+ password
+);
+
+await userCredential.user.reload();
+
+if(
+ !userCredential.user.emailVerified
+){
+
+ await signOut(auth);
+
+ alert(
+  "Najpierw potwierdź adres email klikając link wysłany na skrzynkę."
+ );
+
+ return;
+}
+
 alert("Zalogowano!");
-})
 
-.catch((error)=>{
-alert(error.message);
-});
+}catch(error){
+
+ alert(error.message);
+
+}
 
 }
 
