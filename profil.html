@@ -397,12 +397,25 @@ password
 
 .then(async(userCredential)=>{
 
-localStorage.setItem(
- "pendingUsername",
- username
-);
 await setDoc(
- doc(db,"reservedUsernames",username),
+ doc(
+  db,
+  "pendingUsers",
+  userCredential.user.uid
+ ),
+ {
+  username:username,
+  email:email,
+  createdAt:Date.now()
+ }
+);
+
+await setDoc(
+ doc(
+  db,
+  "reservedUsernames",
+  username
+ ),
  {
   uid:userCredential.user.uid,
   email:email,
@@ -414,6 +427,8 @@ await sendEmailVerification(
  userCredential.user
 );
 
+await signOut(auth);
+ 
 alert(
  "Na podany adres email wysłano link aktywacyjny."
 );
@@ -530,19 +545,6 @@ if(user.emailVerified){
 
 }
 
-await sendEmailVerification(
- userCredential.user
-);
-
-await signOut(auth);
-
-alert(
- "Sprawdź skrzynkę email i aktywuj konto."
-);
-
- localStorage.removeItem(
-  "pendingUsername"
- );
 }
  
 document.getElementById(
